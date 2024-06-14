@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <form action="{% url 'payment_success' %}" method="POST" id="payment-form">
+        {% csrf_token %} 
+        <input type="hidden" name="order_id" value="{{ order_id }}">
+    </form>
+    <script>
+        var options = {
+            "key": "{{ settings.RAZORPAY_API_KEY }}",
+            "amount": "{{ total_amount|floatformat:2|int * 100 }}",  // Convert to smallest currency unit
+            "currency": "INR",
+            "name": "X-YUG Private Limited",
+            "description": "Payment Description",
+            "order_id": "{{ order_id }}",
+            "handler": function(response) {
+                // Handle the payment success response
+                // You can submit the form or redirect to a success page
+                document.getElementById('payment-form').submit();
+            },
+            "prefill": {
+                "name": "hariram",
+                "email": "hariraman692@.com",
+                "contact": "9345570097"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp = new Razorpay(options);
+        rzp.open();
+    </script>
+</body>
+</html>

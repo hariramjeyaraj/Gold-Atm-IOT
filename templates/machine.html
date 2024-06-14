@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<script>
+  setTimeout(function () {
+    window.location.href = "{% url 'thanku' %}";
+  }, 5000);
+</script>
+
+<style>
+  .container {
+    position: relative;
+    width: 530px;
+    height: auto; /* Set height to auto to allow dynamic height based on content */
+    margin-top: 50px; /* Move the container down by 50px */
+  }
+
+  .container img {
+    display: block;
+    width: 100%; /* Ensure the image fills the container width */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .container1 {
+    position: absolute;
+    top: 500px; /* Move the text down by adjusting the top position */
+    left: 0;
+    width: 100%;
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.8
+    ); /* Add background color for better readability */
+    padding: 10px; /* Add padding for spacing around the text */
+    text-align: center;
+    font-family: "Lora", serif;
+    font-size: 18px;
+    color: #1e2a3a;
+  }
+</style>
+
+<div class="container">
+  <img src="{% static 'media/atm_images/atm.jpg' %}" alt="Logo" />
+  <div class="container1">
+    <p>
+      Please Collect your Coin <br />
+      from Gold Atm
+    </p>
+  </div>
+</div>
+
+{% endblock content %}

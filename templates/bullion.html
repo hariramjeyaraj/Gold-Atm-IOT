@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bullion</title>
+    <style>
+        h2 {
+            font-family: 'Lora', serif;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 30.72px;
+            text-align: center;
+            margin-top: 50px;
+            color: #1E2A3A; /* Apply the specified color */
+        }
+  
+        .custom-element {
+            width: 80px;
+            height: 31px;
+            position: absolute;
+            top: 98px; /* Updated top position */
+            left: 50%;
+            transform: translateX(-50%);
+            gap: 0px;
+            opacity: 0;
+            background-color: #1E2A3A; /* Apply the specified color */
+        }
+  
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+  
+        .product-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 40px; /* Adjusted margin */
+        }
+  
+        .product-item {
+            width: calc(50% - 30px);
+            margin: 15px;
+            text-align: center;
+        }
+  
+        .product-item img {
+            width: 100%;
+            height: auto;
+        }
+  
+         Media queries for mobile devices */
+        @media only screen and (min-width:200px) and (max-width: 768px) {
+            .product-item {
+                {% comment %} width: calc(100% - 30px); {% endcomment %}
+                width: 100%;
+                flex-direction:column;
+            }
+        }
+      </style>
+  
+</head>
+<body>
+    <div class="container">
+        <h2>Bullion</h2>
+    </div>
+    <div class="custom-element"></div>
+    <div class="container">
+        <div class="product-wrapper">
+            {% for weight, price, available_image, unavailable_image, available in product_data %}
+            <div class="product-item">
+                {% if available %}
+                <a href="{% url 'product' %}?weight={{ weight }}&price={{ price }}&image_url={% static 'media/atm_images/'|add:available_image %}">
+                    <img src="{% static 'media/atm_images/'|add:available_image %}" alt="Available" style="width: 110px; height: 150px" />
+                </a>
+                {% else %}
+                <img src="{% static 'media/atm_images/'|add:unavailable_image %}" alt="Out of Stock" style="width: 110px; height: 150px" />
+                {% endif %}
+                <div style="margin-top: 10px">
+                    <p style="margin: 0">{{ weight }} grams</p>
+                    <p style="margin: 0">₹{{ price }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

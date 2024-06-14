@@ -1,0 +1,130 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Silver</title>
+    <style>
+      h2 {
+          font-family: 'Lora', serif;
+          font-weight: 500;
+          font-size: 24px;
+          line-height: 30.72px;
+          text-align: center;
+          margin-top: 50px;
+          color: #1E2A3A; /* Apply the specified color */
+      }
+
+      .custom-element {
+          width: 80px;
+          height: 31px;
+          position: absolute;
+          top: 98px; /* Updated top position */
+          left: 50%;
+          transform: translateX(-50%);
+          gap: 0px;
+          opacity: 0;
+          background-color: #1E2A3A; /* Apply the specified color */
+      }
+
+      .container {
+          max-width: 700px;
+          margin: 0 auto;
+          padding: 0 20px;
+      }
+
+      .product-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          margin-top: 40px; /* Adjusted margin */
+      }
+
+      .product-item {
+          width: calc(50% - 30px);
+          margin: 15px;
+          text-align: center;
+      }
+
+      .product-item img {
+          width: 100%;
+          height: auto;
+      }
+
+       Media queries for mobile devices */
+      @media only screen and (min-width:200px) and (max-width: 768px) {
+          .product-item {
+              {% comment %} width: calc(100% - 30px); {% endcomment %}
+              width: 100%;
+              flex-direction:column;
+          }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Silver</h2>
+    </div>
+    <!-- Custom Element -->
+    <div class="custom-element"></div>
+
+    <div class="container">
+      <div class="product-wrapper">
+        <div class="product-item">
+          <a href="{% url 'product2' %}?weight=10&price={{ silver_price }}&image_url={% static 'media/atm_images/G5.png' %}">
+            <img
+              src="{% static 'media/atm_images/G5.png' %}"
+              alt=""
+              style="width: 110px; height: 150px"
+            />
+          </a>
+          <div style="margin-top: 10px">
+            <p style="margin: 0">10 grams</p>
+            <p style="margin: 0">₹ {{silver_price}}</p>
+          </div>
+        </div>
+        <div class="product-item">
+          <a href="{% url 'product2' %}?weight=20&price={{ silver_price1 }}&image_url={% static 'media/atm_images/G6.png' %}">
+            <img
+              src="{% static 'media/atm_images/G6.png' %}"
+              alt=""
+              style="width: 110px; height: 150px"
+            />
+          </a>
+          <div style="margin-top: 10px">
+            <p style="margin: 0">20 grams</p>
+            <p style="margin: 0">₹ {{silver_price1}}</p>
+          </div>
+        </div>
+        <div class="product-item">
+          <a href="{% url 'product2' %}?weight=50&price={{ silver_price2 }}&image_url={% static 'media/atm_images/G7.png' %}">
+            <img
+              src="{% static 'media/atm_images/G7.png' %}"
+              alt=""
+              style="width: 110px; height: 150px"
+            />
+          </a>
+          <div style="margin-top: 10px">
+            <p style="margin: 0">50 grams</p>
+            <p style="margin: 0">₹ {{silver_price2}}</p>
+          </div>
+        </div>
+        <div class="product-item">
+          <a href="{% url 'product2' %}?weight=100&price={{ silver_price3 }}&image_url={% static 'media/atm_images/G8.png' %}">
+            <img
+              src="{% static 'media/atm_images/G8.png' %}"
+              alt=""
+              style="width: 110px; height: 150px"
+            />
+          </a>
+          <div style="margin-top: 10px">
+            <p style="margin: 0">100 grams</p>
+            <p style="margin: 0">₹ {{silver_price3}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}

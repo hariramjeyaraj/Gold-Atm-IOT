@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <form action="{% url 'payment_success' %}" method="POST" id="payment-form">
+        {% csrf_token %}
+        <input type="hidden" name="order_id" value="{{ order_id }}">
+        <input type="hidden" name="total_amount" value="{{ total_amount }}">
+        <input type="hidden" name="grams" value="{{ grams }}">
+        <input type="hidden" name="type" value="{{ type }}">
+    </form>
+    <script>
+        console.log("Total amount in paise:", "{{ total_amount }}");
+        console.log("Order ID:", "{{ order_id }}");
+        console.log("Item Type:", "{{ type }}");
+
+        var options = {
+            "key": "{{ settings.RAZORPAY_API_KEY }}",
+            "amount": 100,  // Fixed amount of 1 rupee (100 paise) for testing
+            "currency": "INR",
+            "name": "X-YUG Private Limited",
+            "description": "Payment Description",
+            "order_id": "{{ order_id }}",
+            "handler": function(response) {
+                var form = document.getElementById('payment-form');
+                form.appendChild(createInputElement('razorpay_payment_id', response.razorpay_payment_id));
+                form.appendChild(createInputElement('razorpay_signature', response.razorpay_signature));
+                form.submit();
+            },
+            "prefill": {
+                "name": "hariram",
+                "email": "hariraman692@.com",
+                "contact": "9345570097"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp = new Razorpay(options);
+        rzp.open();
+
+        function createInputElement(name, value) {
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            return input;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'CSS/categorie.css' %}" />
+<style>
+  /* Custom styles */
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center" style="margin-top: 30px">
+      <h2>CATEGORIES</h2>           
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-6 col-sm-4 col-md-3 mb-4" style="margin-top: 30px">
+      <div class="category-item text-center">
+        <div class="category-image">
+          <a href="{% url 'bullion' %}">
+            <img src="{% static 'media/atm_images/new3.png' %}" alt="" class="img-fluid rounded-circle">
+          </a>
+        </div>
+        <div class="category-title">
+          <b>Bullion</b>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 col-sm-4 col-md-3 mb-4" style="margin-top: 30px">
+      <div class="category-item text-center">
+        <div class="category-image">
+          <a href="{% url 'silver' %}">
+            <img src="{% static 'media/atm_images/new2.png' %}" alt="" class="img-fluid rounded-circle">
+          </a>
+        </div>
+        <div class="category-title">
+          <b>Silver</b>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 col-sm-4 col-md-3 mb-4" style="margin-top: 30px">
+      <div class="category-item text-center">
+        <div class="category-image">
+          <a href="">
+            <img src="{% static 'media/atm_images/new.png' %}" alt="" class="img-fluid rounded-circle">
+          </a>
+        </div>
+        <div class="category-title">
+          <b>Pendant</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

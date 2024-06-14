@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<script>
+  // Get the CSRF token from the cookie
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+  }
+  var csrftoken = getCookie('csrftoken');
+
+  setTimeout(function () {
+    window.location.href = "{% url 'machine' %}";
+  }, 3000);
+</script>
+<style>
+  .image-container {
+    position: relative;
+    text-align: center;
+    margin-top: 180px;
+  }
+
+  .image {
+    width: 200px; /* Adjust the width as needed */
+    height: auto;
+  }
+
+  .container {
+    width: 80%;
+    max-width: 500px;
+    margin: 20px auto;
+    font-family: "Lora", serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 30.72px;
+    text-align: center;
+    color: #1e2a3a;
+  }
+
+  .success-message {
+    margin-top: 20px;
+  }
+
+  /* Media queries for mobile devices */
+  @media only screen and (max-width: 768px) {
+    .container {
+      font-size: 20px;
+      line-height: 26px;
+    }
+  }
+
+  /* Media queries for tablet devices */
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .container {
+      width: 70%;
+    }
+  }
+</style>
+
+<div class="image-container">
+  <img
+    src="{% static 'media/atm_images/success.png' %}"
+    alt="Logo"
+    class="image"
+  />
+  <div class="container success-message">
+    <h2>Payment Successfully Done</h2>
+  </div>
+</div>
+{% endblock content %}

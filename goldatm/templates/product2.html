@@ -1,0 +1,175 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<style>
+  .product-info-heading {
+    font-family: "Lora", serif;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 30.72px;
+    text-align: center;
+    margin-top: 60px;
+    color: #1e2a3a;
+  }
+
+  .product-image-container {
+    text-align: center;
+  }
+
+  .security-info-container {
+    text-align: center;
+    margin-top: 10px; /* Added margin top to push it down */
+  }
+
+  .product-container {
+    text-align: center;
+    margin-top: 40px;
+    position: relative;
+  }
+
+  .product-image {
+    width: 108px;
+    height: 193px;
+  }
+
+  .security-info {
+    background-color: #D6D9DF;
+    font-family: "Lora";
+    font-size: 22px;
+    margin: 0;
+    display: inline-block;
+    padding: 5px 10px;
+    vertical-align: middle;
+  }
+
+  .security-icon {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+
+  .product-details {
+    font-family: "Lora", serif;
+    font-size: 16px;
+    line-height: 23px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .pay-now-button {
+    width: 335px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #ffc300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Lora", serif;
+    font-size: 18px;
+    line-height: 50px;
+    color: #000000;
+    text-decoration: none;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .pay-now-button:hover {
+    background-color: #ffa500;
+  }
+
+  /* Media queries for mobile devices */
+  @media only screen and (max-width: 768px) {
+    .product-image {
+      width: 80px;
+      height: auto;
+    }
+    .security-info {
+      font-size: 18px;
+    }
+    .product-details {
+      font-size: 14px;
+    }
+    .pay-now-button {
+      width: 250px;
+      font-size: 16px;
+    }
+  }
+
+  /* Media queries for tablet devices */
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .product-image {
+      width: 100px;
+      height: auto;
+    }
+    .security-info {
+      font-size: 20px;
+    }
+    .product-details {
+      font-size: 16px;
+    }
+    .pay-now-button {
+      width: 300px;
+      font-size: 18px;
+    }
+  }
+</style>
+
+<h2 class="product-info-heading">Product Info</h2>
+
+<div class="product-container">
+  <div class="product-image-container">
+    {% if image_url %}
+    <img
+      src="{{ image_url }}"
+      alt=""
+      srcset=""
+      class="product-image"
+    />
+  {% endif %}
+  </div>
+  <div class="security-info-container">
+    <div class="d6" style="margin-top: 10px">
+      <!-- Added margin top here -->
+      <p class="security-info">
+       
+        100% Hallmarked &nbsp; &nbsp; 99.9 Pure Silver
+      </p>
+    </div>
+  </div>
+
+  
+  {% comment %} <div class="product-details">
+    <pre style="font-size: 20px;"> {{ weight }} grams                      ₹{{ price }}</pre>
+    <pre style="font-size: 20px;"> TAX : 3% GST + 1% Other levies. </pre>
+    <pre style="font-size: 20px;"> TAX AMOUNT : Rs. {{ percentage_of_price|floatformat:2 }} </pre>
+    <pre style="font-size: 20px;"> TOTAL AMOUNT : Rs. {{ percentage_of_price|add:price|floatformat:2 }}</pre>
+  </div> {% endcomment %}
+
+  
+  {% load mathfilters %}
+
+<div class="product-details">
+    <pre style="font-size: 20px;"> {{ weight }} grams                      ₹{{ price }}</pre>
+    <pre style="font-size: 20px;"> TAX : 3% GST + 1% Other levies. </pre>
+    <pre style="font-size: 20px;"> TAX AMOUNT : Rs. {{ percentage_of_price|floatformat:2 }} </pre>
+    <pre style="font-size: 20px;"> TOTAL AMOUNT : Rs. {{ total_amount|floatformat:2 }}</pre>
+</div>
+
+  <form method="POST">
+    {% csrf_token %}
+    <a href="{% url 'payment_view' %}" class="pay-now-button">Pay Now</a>
+
+   </form>
+   <script>
+    function redirect () {
+            var x = setTimeout(function () {
+                window.location.href = "{% url 'success' %}";
+                window.clearTimeout(x);     // clear time out.
+            }, 5000);
+    </script>
+
+  
+</div>
+
+{% endblock content %}
