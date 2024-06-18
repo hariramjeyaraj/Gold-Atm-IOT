@@ -132,10 +132,10 @@ MEDIA_ROOT = 'static/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-RAZORPAY_API_KEY="rzp_test_0VM20Pg2VIA2aR"    # dummy
-RAZORPAY_API_SECRET="YbpG50DDD3linqoZmmVkcA1b"
+# RAZORPAY_API_KEY="rzp_test_0VM20Pg2VIA2aR"    # dummy
+# RAZORPAY_API_SECRET="YbpG50DDD3linqoZmmVkcA1b"
 
-# RAZORPAY_API_KEY="rzp_live_uvxtS5LwJPMIOP"    # live key
-# RAZORPAY_API_SECRET="lYGpqHKvY327CDEvnQLP7mCp"
+RAZORPAY_API_KEY="rzp_live_uvxtS5LwJPMIOP"    # live key
+RAZORPAY_API_SECRET="lYGpqHKvY327CDEvnQLP7mCp"
 
 accessToken= "pk.eyJ1IjoiYml0dHV4eXVnIiwiYSI6ImNseGN4dnFvbDAwOGsyaXM3YTY0Z2I3MTQifQ.jJD9avbZDyEJk1XhkhDQwA"
