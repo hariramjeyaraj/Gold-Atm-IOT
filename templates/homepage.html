@@ -36,6 +36,9 @@
 </div>
 
 <script>
+
+  var homepageUrl = "{% url 'home' %}";
+
   // Function to request location permission
   function requestLocationPermission() {
     if ('geolocation' in navigator) {
@@ -55,7 +58,8 @@
         },
         function(error) {
           // Location permission denied or unavailable
-          document.getElementById("locationPermissionMessage").style.display = "block";
+          alert("You have denied the location permission. You will be redirected to the homepage.");
+          window.location.href = homepageUrl; // Adjust 'homepage' to your actual homepage URL
         },
         {
           enableHighAccuracy: true, // Request high accuracy
@@ -64,8 +68,8 @@
         }
       );
     } else {
-      // Geolocation not supported
-      document.getElementById("locationPermissionMessage").style.display = "block";
+      alert("Geolocation is not supported by your browser. You will be redirected to the homepage.");
+      window.location.href = homepageUrl; // Adjust 'homepage' to your actual homepage URL
     }
   }
   
