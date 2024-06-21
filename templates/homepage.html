@@ -2,13 +2,11 @@
 {% load static %}
 
 {% block title %}
-
 {% endblock title %}
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'CSS/style.css' %}" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRlMEwBmyJscVdr0ZVc8OG8hBVJaeIV3Q"></script>
 
 <style>
   /* Custom CSS can go here if needed */
@@ -26,6 +24,7 @@
 
 <script>
   var homepageUrl = "{% url 'home' %}";
+  var API_KEY = 'AIzaSyBRlMEwBmyJscVdr0ZVc8OG8hBVJaeIV3Q';
 
   // Function to request location permission
   function requestLocationPermission() {
@@ -51,8 +50,8 @@
           console.log("Longitude: " + longitude);
         },
         function(error) {
-          // Location permission denied or unavailable
-          handleGeolocationError();
+          // Use Google Maps Geolocation API as fallback
+          fetchGoogleGeolocation();
         },
         {
           enableHighAccuracy: true, // Request high accuracy
@@ -102,8 +101,44 @@
     });
   }
 
+  // Function to fetch location using Google Maps Geolocation API
+  function fetchGoogleGeolocation() {
+    fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=${API_KEY}`, {
+      method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+      var latitude = data.location.lat;
+      var longitude = data.location.lng;
+
+      console.log(latitude, longitude, '___________+++')
+
+      localStorage.setItem('userLatitude', latitude);
+      localStorage.setItem('userLongitude', longitude);
+
+      // Fetch the address using the Google Geocoding API
+      fetchAddress(latitude, longitude);
+
+      // Location permission granted, redirect after 5 seconds
+      setTimeout(function() {
+        window.location.href = "{% url 'atm' %}";
+      }, 5000);
+
+      // Display latitude and longitude in console
+      console.log("Latitude: " + latitude);
+      console.log("Longitude: " + longitude);
+    })
+    .catch(error => {
+      console.error('Error fetching location from Google Maps Geolocation API:', error);
+      handleGeolocationError();
+    });
+  }
+
   // Check geolocation permission on page load
   requestLocationPermission();
 </script>
+
+<!-- Load the Google Maps JavaScript API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRlMEwBmyJscVdr0ZVc8OG8hBVJaeIV3Q"></script>
 
 {% endblock content %}
