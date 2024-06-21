@@ -47,7 +47,7 @@ def bullion(request):
     stock_url_template = "http://stg-api.goldatm.gold:3001/api/singleatmstock/atmid"
 
     # Replace with your actual ATM ID
-    atm_id = "GS000002-2024-XYUG-V1-91"
+    atm_id = "GS00001-2024-XYUG-V1-91"
     stock_url = stock_url_template.replace("atmid", atm_id)
 
     # Fetch live price
@@ -96,7 +96,7 @@ def silver(request):
     stock_url_template = "http://stg-api.goldatm.gold:3001/api/singleatmstock/atmid"
 
     # Replace with your actual ATM ID
-    atm_id = "GS000002-2024-XYUG-V1-91"
+    atm_id = "GS00001-2024-XYUG-V1-91"
     stock_url = stock_url_template.replace("atmid", atm_id)
 
     # Fetch live price
@@ -188,23 +188,44 @@ def initiate_payment(total_amount, currency='INR'):
     response = client.order.create(data=data)
     return response['id']
 
-def payment_view(request):       # payment integration final 
+# def payment_view(request):       # payment integration final 
+#     if request.method == 'POST':
+#         total_amount = request.POST.get('total_amount')
+#         grams = request.POST.get('grams')
+#         item_type = request.POST.get('type')
+#         print(f"Total amount received: {total_amount}, Item type: {item_type}")
+
+#         if not total_amount:
+#             return HttpResponseBadRequest('Total amount is not provided')
+        
+#         try:
+#             total_amount = float(total_amount)
+#         except ValueError:
+#             return HttpResponseBadRequest('Invalid total amount')
+        
+#         final_amount = int(total_amount * 100)  # Convert to paise
+#         print(f"Final amount in paise: {final_amount}")
+
+#         order_id = initiate_payment(final_amount)  # Pass the final_amount in paise
+        
+#         context = {
+#             'order_id': order_id,
+#             'total_amount': final_amount,  # Pass amount in paise to the template
+#             'grams': grams,
+#             'type': item_type  # Include the type in the context
+#         }
+#         print(f"Context passed to template: {context}")
+#         return render(request, 'payment.html', context)
+
+def payment_view(request):
     if request.method == 'POST':
         total_amount = request.POST.get('total_amount')
         grams = request.POST.get('grams')
         item_type = request.POST.get('type')
         print(f"Total amount received: {total_amount}, Item type: {item_type}")
 
-        if not total_amount:
-            return HttpResponseBadRequest('Total amount is not provided')
-        
-        try:
-            total_amount = float(total_amount)
-        except ValueError:
-            return HttpResponseBadRequest('Invalid total amount')
-        
-        final_amount = int(total_amount * 100)  # Convert to paise
-        print(f"Final amount in paise: {final_amount}")
+        # For testing, use a fixed amount of 1 rupee (100 paise)
+        final_amount = 100                # 1 rupees only
 
         order_id = initiate_payment(final_amount)  # Pass the final_amount in paise
         
@@ -216,6 +237,7 @@ def payment_view(request):       # payment integration final
         }
         print(f"Context passed to template: {context}")
         return render(request, 'payment.html', context)
+
 
 @csrf_exempt
 def payment_success_view(request):
@@ -233,7 +255,7 @@ def payment_success_view(request):
     tax_amount = request.POST.get('tax_amount', 233)  # Default to 233 if not provided
     coin_rate = request.POST.get('coin_rate', 23232)  # Default to 23232 if not provided
     card_charges = request.POST.get('card_charges', 0)  # Default to 0 if not provided
-    atm_id = request.POST.get('atmid', 'GS000002-2024-XYUG-V1-91')  # Default to a specific ATM ID if not provided
+    atm_id = request.POST.get('atmid', 'GS00001-2024-XYUG-V1-91')  # Default to a specific ATM ID if not provided
 
     params_dict = {
         'razorpay_order_id': order_id,

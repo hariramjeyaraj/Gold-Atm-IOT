@@ -35,6 +35,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <section class="commodiates-section">
       <div class="container">
@@ -170,38 +171,60 @@
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            {% comment %} latitude: 17.4408567,
-            longitude: 78.4645267, {% endcomment %}
-            
-            latitude: latitude,
-            longitude: longitude,
+            latitude: 17.444429,
+            longitude: 78.465728,
+            {% comment %} latitude: latitude,
+            longitude: longitude, {% endcomment %}
             atmid: atmid
           }),
         })
         .then(response => response.json())
         .then(data => {
           console.log('API response:', data);  // Log the API response
-    
+      
           if (data.withinRadius) {
             // Proceed if within radius
             console.log("User is within the ATM radius.");
           } else {
             // Display error message if not within radius
-            alert("You are not near the ATM location.");
-            window.location.href = "{% url 'home' %}";  // Redirect to home or show message
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "You are not near the ATM location.",
+              confirmButtonText: "OK",
+              allowOutsideClick: false, // Prevent dismissing on outside click
+              allowEscapeKey: false // Prevent dismissing with Esc key
+            }).then((result) => {
+              // Redirect to home page on OK click or if dismissed by timer
+              if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                window.location.href = "{% url 'home' %}";
+              }
+            });
           }
         })
         .catch(error => {
-          console.error('Error:', error);
-          alert("An error occurred while checking proximity.");
-          // window.location.href = "{% url 'home' %}"; // Uncomment to redirect to home on error
+          // Handle fetch error
+          console.error('Error checking proximity:', error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "An error occurred while checking proximity.",
+            confirmButtonText: "OK",
+            allowOutsideClick: false, // Prevent dismissing on outside click
+            allowEscapeKey: false // Prevent dismissing with Esc key
+          }).then((result) => {
+            // Redirect to home page on OK click or if dismissed by timer
+            if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+              window.location.href = "{% url 'home' %}";
+            }
+          });
         });
       }
     
       // Retrieve user's coordinates from local storage
       const userLatitude = localStorage.getItem('userLatitude');
       const userLongitude = localStorage.getItem('userLongitude');
-      const atmid = "GS000002-2024-XYUG-V1-91"; // Replace with actual ATM ID if available
+      const atmid = "GS00001-2024-XYUG-V1-91"; // Replace with actual ATM ID if available
     
       console.log('User Latitude:', userLatitude);
       console.log('User Longitude:', userLongitude);
