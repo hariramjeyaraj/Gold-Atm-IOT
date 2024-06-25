@@ -39,6 +39,15 @@
             },
             "theme": {
                 "color": "#3399cc"
+            },
+            "modal": {
+                "ondismiss": function() {
+                    // Handle cancelation here
+                    if (confirm("Are you sure you want to cancel the order?")) {
+                        // Redirect to product page with query parameters
+                        window.location.href = "http://127.0.0.1:8000/product/?weight=0.5&price=3697.69&image_url=/static/media/atm_images/G1.png";
+                    }
+                }
             }
         };
         var rzp = new Razorpay(options);

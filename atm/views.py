@@ -47,7 +47,7 @@ def bullion(request):
     stock_url_template = "http://stg-api.goldatm.gold:3001/api/singleatmstock/atmid"
 
     # Replace with your actual ATM ID
-    atm_id = "GS00001-2024-XYUG-V1-91"
+    atm_id = "GS000002-2024-XYUG-V1-91"
     stock_url = stock_url_template.replace("atmid", atm_id)
 
     # Fetch live price
@@ -96,7 +96,7 @@ def silver(request):
     stock_url_template = "http://stg-api.goldatm.gold:3001/api/singleatmstock/atmid"
 
     # Replace with your actual ATM ID
-    atm_id = "GS00001-2024-XYUG-V1-91"
+    atm_id = "GS000002-2024-XYUG-V1-91"
     stock_url = stock_url_template.replace("atmid", atm_id)
 
     # Fetch live price
