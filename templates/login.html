@@ -88,7 +88,7 @@
          if (!phone.match(/^\d{10}$/)) {
             alert("Please enter a valid ten-digit mobile number.");
         } else {
-            fetch("http://stg-api.goldatm.gold:3001/api/customer", {
+            fetch("https://stg-api.goldatm.in/api/customer", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
