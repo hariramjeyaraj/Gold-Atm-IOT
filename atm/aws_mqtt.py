@@ -5,9 +5,9 @@ import json
 # Constants
 ENDPOINT = "a2iqq5l1s1a266-ats.iot.eu-central-1.amazonaws.com"
 CLIENT_ID = "iotconsole-dbb5c442-e6db-40b6-b343-53c9a6367e4f"
-PATH_TO_CERTIFICATE = "C:/Users/DELL/Desktop/@XYUG/project/goldatm/AWSCERTIFICATES/Devicecertificate.crt"
-PATH_TO_PRIVATE_KEY = "C:/Users/DELL/Desktop/@XYUG/project/goldatm/AWSCERTIFICATES/Private.key"
-PATH_TO_AMAZON_ROOT_CA_1 = "C:/Users/DELL/Desktop/@XYUG/project/goldatm/AWSCERTIFICATES/AmazonRootCA1.pem"
+PATH_TO_CERTIFICATE = "C:/Users/DELL/Downloads/Gold-Atm-IOT-main/AWSCERTIFICATES/Devicecertificate.crt"
+PATH_TO_PRIVATE_KEY = "C:/Users/DELL/Downloads/Gold-Atm-IOT-main/AWSCERTIFICATES/Private.key"
+PATH_TO_AMAZON_ROOT_CA_1 = "C:/Users/DELL/Downloads/Gold-Atm-IOT-main/AWSCERTIFICATES/AmazonRootCA1.pem"
 TOPIC = "Gold_Atm_Publish"
 
 # Initialize the MQTT connection

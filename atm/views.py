@@ -44,7 +44,7 @@ def categories(request):
 def bullion(request):
     # URLs for fetching live prices and stock information
     live_price_url = "https://liverates-api.goldcentral.in/api/liveRateFromDbATM"
-    stock_url_template = "http://stg-api.goldatm.gold:3001/api/singleatmstock/atmid"
+    stock_url_template = "https://stg-api.goldatm.in/api/singleatmstock/atmid"
 
     # Replace with your actual ATM ID
     atm_id = "GS000002-2024-XYUG-V1-91"
@@ -93,7 +93,7 @@ def bullion(request):
 def silver(request):
     # URLs for fetching live prices and stock information
     live_price_url = "https://liverates-api.goldcentral.in/api/liveRateFromDbATM"
-    stock_url_template = "http://stg-api.goldatm.gold:3001/api/singleatmstock/atmid"
+    stock_url_template = "https://stg-api.goldatm.in/api/singleatmstock/atmid"
 
     # Replace with your actual ATM ID
     atm_id = "GS000002-2024-XYUG-V1-91"
@@ -281,7 +281,7 @@ def payment_success_view(request):
         }
         print(transaction_details, 'transaction details')
 
-        transaction_response = requests.post('http://stg-api.goldatm.gold:3001/api/transaction', json=transaction_details)
+        transaction_response = requests.post('https://stg-api.goldatm.in/api/transaction', json=transaction_details)
         print(transaction_response, 'response coming')
 
         if transaction_response.status_code == 200:
@@ -295,7 +295,7 @@ def payment_success_view(request):
             }
             print(stock_update_details, 'stock update details')
 
-            stock_update_response = requests.post('http://stg-api.goldatm.gold:3001/api/updatestocks', json=stock_update_details)
+            stock_update_response = requests.post('https://stg-api.goldatm.in/api/updatestocks', json=stock_update_details)
             stockupdate_data = stock_update_response.json()
             print(stockupdate_data, 'stock update data')
 

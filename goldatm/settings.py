@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-lp2l6#n@0dlf06)#7_+i=rhkzyazq8fcufg8xkk4-s)i--wv#d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://stg-iot.goldatm.in/']
 
 
 # Application definition
@@ -139,3 +139,19 @@ RAZORPAY_API_KEY="rzp_live_uvxtS5LwJPMIOP"    # live key
 RAZORPAY_API_SECRET="lYGpqHKvY327CDEvnQLP7mCp"
 
 accessToken= "pk.eyJ1IjoiYml0dHV4eXVnIiwiYSI6ImNseGN4dnFvbDAwOGsyaXM3YTY0Z2I3MTQifQ.jJD9avbZDyEJk1XhkhDQwA"
+
+# CSRF settings
+CSRF_COOKIE_SECURE = True  # Ensure this is True if using HTTPS
+CSRF_USE_SESSIONS = False  # Typically False, unless you have a specific use case
+CSRF_TRUSTED_ORIGINS = ['https://yourdomain.com']  # Add your domain here
+
+# Secure Settings
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
+SECURE_HSTS_SECONDS = 3600  # Use HTTP Strict Transport Security
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Sessions
+SESSION_COOKIE_SECURE = True  # Ensure session cookies are only sent over HTTPS
